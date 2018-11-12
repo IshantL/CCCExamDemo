@@ -1,117 +1,4 @@
 
-<!DOCTYPE html>
-
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags must come first in the head; any other head content must come after these tags -->
-    <meta name="description" content="Multiple Choice Questions - iDiv Health & Security Instructions">
-    <meta name="author" content="Christian Langer">
-    <link rel="icon" href="">
-
-    <title>iDiv Health &amp; Security Instructions</title>
-    <link type="text/css" rel="stylesheet" href="./css/bootstrap.min.css">    
-    
-    <link type="text/css" rel="stylesheet" href="./css/animate.css">
-
-    <link type="text/css" rel="stylesheet" href="./css/font-awesome.min.css">
-
-    <link type="text/css" rel="stylesheet" href="./css/custom.css">
-
-    <style>
-      * {
-          box-sizing: border-box;
-      }
-      
-      body {
-          font-family: Arial, Helvetica, sans-serif;
-      }
-      
-      /* Style the header */
-      header {
-          background-color: #666;
-          padding: 12px;
-          text-align: center;
-          font-size: 35px;
-          color: white;
-      }
-      article {
-          float: left;
-          padding: 20px;
-          width: 100%;
-          background-color: #f1f1f1;
-          height: 550px;
-      }
-      
-      /* Style the footer */
-      footer {
-          background-color: #777;
-          padding: 10px;
-          text-align: center;
-          color: white;
-      }
-      
-      /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
-      @media (max-width: 600px) {
-          nav, article {
-              width: 100%;
-              height: auto;
-          }
-      }
-      </style>
-
-</head>
-
-<body>
-<header>
-  <h2>CCC Exam Demo</h2>
-</header>
-
-<section>
-  
-  <article>
-  <!--Questions-->
-  <div id="center">
-    <div class="quiz-container">
-      <div id="quiz">
-        <div id="quizquestionContainer">
-          <div id="quizoptionContainer"></div>
-          <div id="results"></div>
-        </div>
-        <div id="quizresultsContainer"></div>
-      </div>
-      <button id="confirm" class="btn btn-default">Confirm</button>
-
-      <button id="next" class="btn btn-default">Next Question</button>
-
-      <button id="submit" class="btn btn-default">Show My Result</button>
-    </div>
-    
-  </div>  
-  </article>
-</section>
-
-<footer>
-  <h3>Rasika Computer</h3>
-</footer>
-
-    
-<!-- jQuery -->
-<script src="./js/jquery.min.js"></script>
-<!-- Bootstrap JS -->
-<script type="text/javascript" src="./js/bootstrap.min.js"></script>
-<!-- link and activate wow js -->
-<script type="text/javascript" src="./js/wow.js"></script>
-<script>
-    new WOW().init();
-</script>
-<!-- Fetch Questions from JSON -->
-<script type="text/javascript" src="./js/questions.js"></script>
-
-<script>
-
   // wrap the whole quiz in an IIFE (immediately invoked function expression), 
   // which is a function that runs as soon as you define it. 
   // That way, your variables will stay out of global scope and your quiz won’t interfere with any other scripts running on the page.
@@ -142,23 +29,26 @@
         // String interpolation, so you can embed JavaScript expressions right into your strings like this: ${code_goes_here}
         answers.push(
           `<input id="question${questionNumber}${abc}" type="radio" name="question${questionNumber}" class="with-font" value="${abc}"> 
-          <label for="question${questionNumber}${abc}">${abc} : ${currentQuestion.answers[abc]}</label>`
+          <label for="question${questionNumber}${abc}">${currentQuestion.answers[abc]}</label>`
         );
       }
 
       // add this question and its answers to the output
       output.push(
         `<div class="slide">
+            <div id="bg">
+              ${currentQuestion.background}
+            </div>
 
             <div id="title" class="wow slideInDown"> 
-              <h2>Question No:${currentQuestion.id}</h2>
+              <h2>${currentQuestion.title}</h2>
             </div>
 
             <div class="question wow fadeIn" data-wow-delay="1s" data-wow-duration="2s"> 
               <p>${currentQuestion.question}</p>
             </div>
 
-            <div class="answers wow fadeIn" data-wow-delay="1s" data-wow-duration="2s">
+            <div class="answers wow fadeIn" data-wow-delay="2s" data-wow-duration="2s">
               <p>${answers.join("")}</p>
             </div>
          </div>`
@@ -198,7 +88,7 @@ function showAnswer() {
         answersArray.push(
           `<div class="slide ">
             <div class="answerText wow slideInRight correctAnswer">
-              <p>Correct Answer</p>
+              <p>${currentQuestion.correctAnswerText}</p>
             </div>
           </div>`
         );
@@ -208,7 +98,7 @@ function showAnswer() {
         answersArray.push(
           `<div class="slide ">
             <div class="answerText wow slideInRight wrongAnswer">
-              <p>Wrong Answer</p>
+              <p>${currentQuestion.falseAnswerText}</p>
             </div>
           </div>`
         );
@@ -390,8 +280,3 @@ function showAnswer() {
   submitButton.addEventListener("click", showResults);
 
 })();
-
-</script>
-
-</body>
-</html>
