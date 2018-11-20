@@ -66,7 +66,7 @@
 
 <body>
 <header>
-  <h2>CCC Practise Demo</h2>
+  <h2>CCC Exam Demo</h2>
 </header>
 
 <section>
@@ -83,6 +83,8 @@
         <div id="quizresultsContainer"></div>
       </div>
       <button id="confirm" class="btn btn-default">Confirm</button>
+
+      <button id="previous" class="btn btn-default">Previous Question</button>
 
       <button id="next" class="btn btn-default">Next Question</button>
 
@@ -142,26 +144,23 @@
         // String interpolation, so you can embed JavaScript expressions right into your strings like this: ${code_goes_here}
         answers.push(
           `<input id="question${questionNumber}${abc}" type="radio" name="question${questionNumber}" class="with-font" value="${abc}"> 
-          <label for="question${questionNumber}${abc}">${currentQuestion.answers[abc]}</label>`
+          <label for="question${questionNumber}${abc}">${abc} : ${currentQuestion.answers[abc]}</label>`
         );
       }
 
       // add this question and its answers to the output
       output.push(
         `<div class="slide">
-            <div id="bg">
-              ${currentQuestion.background}
-            </div>
 
             <div id="title" class="wow slideInDown"> 
-              <h2>${currentQuestion.title}</h2>
+              <h2>Question No:${currentQuestion.id}</h2>
             </div>
 
             <div class="question wow fadeIn" data-wow-delay="1s" data-wow-duration="2s"> 
               <p>${currentQuestion.question}</p>
             </div>
 
-            <div class="answers wow fadeIn" data-wow-delay="2s" data-wow-duration="2s">
+            <div class="answers wow fadeIn" data-wow-delay="1s" data-wow-duration="2s">
               <p>${answers.join("")}</p>
             </div>
          </div>`
@@ -201,6 +200,7 @@ function showAnswer() {
         answersArray.push(
           `<div class="slide ">
             <div class="answerText wow slideInRight correctAnswer">
+              <p>Correct Answer</p>
               <p>${currentQuestion.correctAnswerText}</p>
             </div>
           </div>`
@@ -211,6 +211,7 @@ function showAnswer() {
         answersArray.push(
           `<div class="slide ">
             <div class="answerText wow slideInRight wrongAnswer">
+              <p>Wrong Answer</p>
               <p>${currentQuestion.falseAnswerText}</p>
             </div>
           </div>`
@@ -231,6 +232,10 @@ function showAnswer() {
 
     // Show Next Button
     nextButton.classList.remove("displaynone");
+
+    // Show Previous Button
+    previousButton.classList.remove("displaynone");
+
     // Disable Answers and Button
     confirmButton.classList.add("disabled");
     $('.answers').addClass('disabled');
@@ -296,6 +301,7 @@ function showAnswer() {
     $('.answers').css('display','none');
     submitButton.classList.add("displaynone");
     nextButton.classList.add("displaynone");
+    previousButton.classList.add("displaynone");
     confirmButton.classList.add("displaynone");
     resultsTextContainer.innerHTML = '';
 
@@ -317,7 +323,8 @@ function showAnswer() {
     // and switch off other Buttons
     submitButton.style.display = "none";
     nextButton.classList.add("displaynone"); 
-    
+    previousButton.classList.add("displaynone"); 
+
   };
 
   // -----------------------
@@ -337,7 +344,21 @@ function showAnswer() {
   };
 
 
-  
+  // -----------------------
+  // Show Previous Slide
+  // -----------------------
+
+  function showPreviousSlide() {
+    
+    showSlide(currentSlide - 1);
+
+    resultsTextContainer.innerHTML = '';
+
+    // show Answers Options and confirmButton again
+    confirmButton.classList.remove("disabled");
+    $('.answers').removeClass('disabled');
+
+  };
 
 
 
@@ -368,6 +389,8 @@ function showAnswer() {
 
   const nextButton = document.getElementById("next");
 
+  const previousButton = document.getElementById("previous");
+
   const submitButton = document.getElementById("submit");
 
   const slides = document.querySelectorAll(".slide");
@@ -389,6 +412,8 @@ function showAnswer() {
   confirmButton.addEventListener("click", showAnswer);
 
   nextButton.addEventListener("click", showNextSlide);
+
+  previousButton.addEventListener("click", showPreviousSlide);
 
   submitButton.addEventListener("click", showResults);
 

@@ -199,6 +199,7 @@ function showAnswer() {
           `<div class="slide ">
             <div class="answerText wow slideInRight correctAnswer">
               <p>Correct Answer</p>
+              <p>${currentQuestion.correctAnswerText}</p>
             </div>
           </div>`
         );
@@ -209,6 +210,7 @@ function showAnswer() {
           `<div class="slide ">
             <div class="answerText wow slideInRight wrongAnswer">
               <p>Wrong Answer</p>
+              <p>${currentQuestion.falseAnswerText}</p>
             </div>
           </div>`
         );
