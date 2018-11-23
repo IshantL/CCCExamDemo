@@ -131,7 +131,12 @@ input[type=radio] {
     top: 440px;
     z-index: 1000;
 }
-
+#previous  {
+  position: absolute; 
+  right: 500px; 
+  top: 440px;
+  z-index: 1000;
+}
 /*
    SLIDES
 -------------------- */
